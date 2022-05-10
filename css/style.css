@@ -1,0 +1,8 @@
+* {
+    box-sizing: border-box;
+}
+
+.copyleft {
+    display: inline-block;
+    transform: rotate(180deg);
+}
