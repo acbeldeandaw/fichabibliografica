@@ -7,6 +7,12 @@ require 'models/UsuarioDAO.php';
 
 session_start();
 
+// Comprobación de sesión
+if (Session::exists()) {
+    header('Location: index.php');
+    die();
+}
+
 $conn = Connection::connect();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -72,46 +78,49 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html>
 
 <head>
-    <title>Inicio - Bibliograpp</title>
+    <title>Registro - BibliogrApp</title>
+    <?php $pageTitle = "Registro - BibliogrApp"?>
     <?php include("template/top.php") ?>
 </head>
 
 <body>
     <?php include("template/navbar.php") ?>
 
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-        <div class="row mb-4">
-            <div class="col">
-                <div class="form-outline">
-                    <input type="text" id="nombre" name="nombre" class="form-control" value="<?= (isset($nombre)) ? $nombre : "" ?>">
-                    <label class="form-label" for="nombre">Nombre</label>
+    <div class="d-flex justify-content-center mb-8 text-center">
+        <div class="col-10 col-md-6 col-lg-5 col-xl-4 p-0 ">
+            <div class="card shadow" style="border-radius: 1rem;">
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        <h1 class="fw-bold m-0">¡Introduce tus datos!</h1>
+                        <div class="form-outline my-3">
+                            <input type="text" id="" name="nombre" class="form-control" value="<?= (isset($nombre)) ? $nombre : "" ?>" required />
+                            <label class="form-label" for="nombre">Nombre *</label>
+                        </div>
+                        <div class="form-outline my-3">
+                            <input type="text" id="apellidos" name="apellidos" class="form-control" value="<?= (isset($apellidos)) ? $apellidos : "" ?>" required />
+                            <label class="form-label" for="apellidos">Apellidos *</label>
+                        </div>
+                        <div class="form-outline mb-3">
+                            <input type="email" id="email" name="email" class="form-control" value="<?= (isset($email)) ? $email : "" ?>" required />
+                            <label class="form-label" for="email">Email *</label>
+                        </div>
+                        <div class="form-outline my-3">
+                            <input type="password" id="contrasena" name="contrasena" class="form-control" required />
+                            <label class="form-label" for="contrasena">Contraseña *</label>
+                        </div>
+                        <div class="form-outline my-3">
+                            <input type="password" id="contrasena2" name="contrasena2" class="form-control" required />
+                            <label class="form-label" for="contrasena2">Repetir Contraseña *</label>
+                        </div>
+                        <button class="btn btn-dark mb-3" type="submit">Registrarse<i class="fa-solid fa-user-plus ps-1"></i></button>
+                    </form>
+                    <div>
+                        <p class="mb-0">¿Ya tienes cuenta? <a href="index.php" class="text-body fw-bold">Inicia sesión</a></p>
+                    </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="form-outline">
-                    <input type="text" id="apellidos" name="apellidos" class="form-control" value="<?= (isset($apellidos)) ? $apellidos : "" ?>">
-                    <label class="form-label" for="apellidos">Apellidos</label>
-                </div>
-            </div>
         </div>
-        <!-- Email input -->
-        <div class="form-outline mb-4">
-            <input type="email" id="email" name="email" class="form-control" value="<?= (isset($email)) ? $email : "" ?>">
-            <label class="form-label" for="email">Email</label>
-        </div>
-        <!-- Password input -->
-        <div class="form-outline mb-4">
-            <input type="password" id="contrasena" name="contrasena" class="form-control">
-            <label class="form-label" for="contrasena">Contraseña</label>
-        </div>
-        <!-- Password input -->
-        <div class="form-outline mb-4">
-            <input type="password" id="contrasena2" name="contrasena2" class="form-control">
-            <label class="form-label" for="contrasena2">Repetir contraseña</label>
-        </div>
-        <!-- Submit button -->
-        <button type="submit" class="btn btn-primary btn-block mb-4">Registrarse</button>
-    </form>
+    </div>
 
     <?php include("template/bottom.php") ?>
 

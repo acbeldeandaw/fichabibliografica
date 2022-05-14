@@ -42,6 +42,30 @@ class UsuarioDAO {
     
     /**
      * 
+     * @param type $id
+     * @return type
+     */
+    public function find($id){
+        $sql = "SELECT * FROM usuarios WHERE id=?";
+        if (!$stmt = $this->conn->prepare($sql)) {
+            die("Error preparing query: " . $this->conn->error);
+        }
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        
+        if(!$result = $stmt->get_result()) {
+            die("SQL Error: ". $this->conn->error);
+        }
+        
+        if ($user = $result->fetch_object('Usuario')) {
+            return $user;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 
      * @param type $email
      * @return type
      */
