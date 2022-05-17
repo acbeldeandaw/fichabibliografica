@@ -4,7 +4,7 @@
     $usuario = $usuarioDAO->find(Session::getSessionUserId());
   ?>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-light navbar-light mb-4">
+  <nav class="navbar navbar-expand-lg bg-light navbar-light mb-4 fw-bold">
     <!-- Container wrapper -->
     <div class="container-fluid">
       <!-- Toggle button -->
@@ -29,7 +29,7 @@
         <div class="dropdown mx-2 profile-picture" style="background-image: url('https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');"></div>
         <div class="text-center">
           <a class="text-reset font-weight-bold"><?= $usuario->getNombre() ?></a><br>
-          <a class="btn btn-danger btn-rounded py-1 px-3" href="logout.php">salir <i class="fa-solid fa-right-from-bracket"></i></a>
+          <a class="btn btn-danger btn-rounded py-1 px-3 fw-bold" href="logout.php">salir <i class="fa-solid fa-right-from-bracket"></i></a>
         </div>
       </div>
       <!-- Right elements -->
@@ -39,7 +39,7 @@
   <!-- Navbar -->
 <?php else : ?>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-link navbar-light mb-4">
+  <nav class="navbar navbar-expand-lg bg-link navbar-light mb-4 fw-bold">
     <!-- Container wrapper -->
     <div class="container-fluid">
       <!-- Toggle button -->
@@ -63,8 +63,8 @@
       <!-- Right elements -->
       <div class="d-flex align-items-center">
         <div>
-          <a class="btn btn-info btn-rounded py-1 px-3 m-0 mb-1 w-100" href="index.php">Iniciar sesión<i class="fa-solid fa-right-to-bracket ps-1"></i></a><br>
-          <a class="btn btn-dark btn-rounded py-1 px-3 w-100" href="registro.php">Registrarse<i class="fa-solid fa-user-plus ps-1"></i></a>
+          <a class="btn btn-info btn-rounded py-1 px-3 m-0 mb-1 w-100 fw-bold" href="index.php">Iniciar sesión<i class="fa-solid fa-right-to-bracket ps-1"></i></a><br>
+          <a class="btn btn-dark btn-rounded py-1 px-3 w-100 fw-bold" href="registro.php">Registrarse<i class="fa-solid fa-user-plus ps-1"></i></a>
         </div>
       </div>
       <!-- Right elements -->

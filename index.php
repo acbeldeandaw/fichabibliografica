@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <head>
     <title>Inicio - BibliogrApp</title>
-    <?php $pageTitle = "Inicio - BibliogrApp"?>
+    <?php $pageTitle = "Inicio - BibliogrApp" ?>
     <?php include("template/top.php") ?>
 </head>
 
@@ -53,7 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <?php if (Session::exists()) : ?>
 
-        <h3>Fichas</h3>
+        <div class="container my-4 text-center">
+            <a href="insertar_ficha.php" class="btn btn-info">Insertar nueva ficha<i class="fa-solid fa-user-plus ps-1"></i></a>
+        </div>
 
     <?php else : ?>
         <div class="d-flex justify-content-center mb-8 text-center">
