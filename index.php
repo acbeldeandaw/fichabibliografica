@@ -4,6 +4,8 @@ require 'models/Session.php';
 require 'models/Message.php';
 require 'models/Usuario.php';
 require 'models/UsuarioDAO.php';
+require 'models/Ficha.php';
+require 'models/FichaDAO.php';
 
 session_start();
 
@@ -55,6 +57,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <div class="container my-4 text-center">
             <a href="insertar_ficha.php" class="btn btn-info">Insertar nueva ficha<i class="fa-solid fa-user-plus ps-1"></i></a>
+        </div>
+        <?php
+        $fichaDAO = new FichaDAO($conn);
+        $fichas = $fichaDAO->findAll(Session::getSessionUserId());
+        ?>
+        <div class="container my-4">
+            <div class="row">
+                <?php foreach ($fichas as $ficha) : ?>
+                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4">
+                        <div class="card text-center border shadow">
+                            <div class="card-header">Featured</div>
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">
+                                    Some quick example text to build on the card title and make up the bulk of the
+                                    card's content.
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <button type="button" class="btn btn-primary">Button</button>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         </div>
 
     <?php else : ?>

@@ -15,6 +15,7 @@ class Ficha
     private $resumen;
     private $notas;
     private $palabrasClave;
+    private $usuario;
 
     function __construct()
     {
@@ -148,5 +149,15 @@ class Ficha
     public function setPalabrasClave($palabrasClave)
     {
         $this->palabrasClave = $palabrasClave;
+    }
+
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+
+    public function setUsuario($usuario)
+    {
+        $this->usuario = $usuario;
     }
 }
