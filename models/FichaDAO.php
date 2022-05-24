@@ -34,8 +34,8 @@ class FichaDAO
             $usuario = $ficha->getUsuario();
 
             $sql = "INSERT INTO fichas(titulo, autor, revista, editorial,"
-                . " lugar_publicacion, fecha_publicacion, tema, bibliografia_sugerida,"
-                . " ubicacion, resumen, notas, palabras_clave, usuario)"
+                . " lugarPublicacion, fechaPublicacion, tema, bibliografiaSugerida,"
+                . " ubicacion, resumen, notas, palabrasClave, usuario)"
                 . " values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
             if (!$stmt = $this->conn->prepare($sql)) {
                 die("Error preparing query: " . $this->conn->error);
@@ -128,6 +128,27 @@ class FichaDAO
 
     /**
      * 
+     * @param Ficha $ficha
+     * @return boolean
+     */
+    public function delete($id)
+    {
+        $sql = "DELETE FROM fichas WHERE id=?";
+        if (!$stmt = $this->conn->prepare($sql)) {
+            die("Error preparing query: " . $this->conn->error);
+        }
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+
+        if ($this->conn->affected_rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 
      * @param type $id
      * @return type
      */
@@ -158,11 +179,12 @@ class FichaDAO
      * @param type $field
      * @return type
      */
-    public function findAll($id ,$order = 'DESC', $field = 'id') {
+    public function findAll($id, $order = 'DESC', $field = 'id')
+    {
         $array_obj = array();
         $sql = "SELECT * FROM fichas WHERE usuario=$id ORDER BY $field $order";
-        if(!$result = $this->conn->query($sql)) {
-            die("SQL Error: ". $this->conn->error);
+        if (!$result = $this->conn->query($sql)) {
+            die("SQL Error: " . $this->conn->error);
         }
         while ($res = $result->fetch_object('Ficha')) {
             $array_obj[] = $res;

@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php if (Session::exists()) : ?>
 
         <div class="container my-4 text-center">
-            <a href="insertar_ficha.php" class="btn btn-info">Insertar nueva ficha<i class="fa-solid fa-user-plus ps-1"></i></a>
+            <a href="insertar_ficha.php" class="btn btn-info">Insertar nueva ficha<i class="fa-solid fa-plus ps-1"></i></i></a>
         </div>
         <?php
         $fichaDAO = new FichaDAO($conn);
@@ -65,18 +65,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="container my-4">
             <div class="row">
                 <?php foreach ($fichas as $ficha) : ?>
-                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4">
+                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4" id='ficha-<?= $ficha->getId() ?>'>
                         <div class="card text-center border shadow">
-                            <div class="card-header">Featured</div>
+                            <div class="card-header"><?= $ficha->getTitulo() ?></div>
                             <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
                                 <p class="card-text">
-                                    Some quick example text to build on the card title and make up the bulk of the
-                                    card's content.
+                                    <?= $ficha->getResumen() ?>
                                 </p>
                             </div>
                             <div class="card-footer">
-                                <button type="button" class="btn btn-primary">Button</button>
+                                <a href="ver_ficha.php?id=<?= $ficha->getId() ?>">
+                                    <button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button>
+                                </a>
+                                <a href="editar_ficha.php?id=<?= $ficha->getId() ?>">
+                                    <button type="button" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></button>
+                                </a>
+                                <a class="confirm-delete" data-id='<?= $ficha->getId() ?>'>
+                                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -100,13 +106,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <input type="password" id="contrasena" name="contrasena" class="form-control form-control-lg" required />
                                 <label class="form-label" for="contrasena">Contraseña *</label>
                             </div>
-                            <div class="checkbox form-check mb-3">
-                                <label class="form-check-label" for="recuerdame">
-                                    <input class="form-check-input" type="checkbox" id="recuerdame" name="_remember_me" checked />
-                                    Recuérdame
-                                </label>
-                            </div>
-                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                             <button class="btn btn-info mb-3" type="submit">Iniciar sesión<i class="fa-solid fa-right-to-bracket ps-1"></i></button>
                         </form>
                         <div>

@@ -67,10 +67,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $ficha->setNotas($notas);
         $ficha->setPalabrasClave($palabrasClave);
 
-        if (!$fichaDAO->update($ficha)) {
-            Message::addErrorMessage("No se ha podido editar la ficha");
+        if ($fichaDAO->find($ficha->getId()) == $ficha) {
+            Message::addErrorMessage("No se han hecho cambios");
         } else {
-            Message::addSuccessMessage("Ficha editada correctamente");
+            if (!$fichaDAO->update($ficha)) {
+                Message::addErrorMessage("No se ha podido editar la ficha");
+            } else {
+                Message::addSuccessMessage("Ficha editada correctamente");
+            }
         }
     }
 }
@@ -79,8 +83,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html>
 
 <head>
-    <title>Insertar Ficha - BibliogrApp</title>
-    <?php $pageTitle = "Insertar Ficha - BibliogrApp" ?>
+    <title>Editar Ficha - BibliogrApp</title>
+    <?php $pageTitle = "Editar Ficha - BibliogrApp" ?>
     <?php include("template/top.php") ?>
     <style>
         .ck-editor__editable_inline {
@@ -92,8 +96,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <?php include("template/navbar.php") ?>
 
-    <form action="" method="POST" class="mb-8">
-
+    <form action="" method="POST">
+        <div class="container my-4 text-center">
+            <a href="index.php" class="btn btn-info">Volver<i class="fa-solid fa-rotate-left ps-1"></i></a>
+            <button type="submit" class="btn btn-info">Editar<i class="fa-solid fa-pen-to-square ps-1"></i></button>
+        </div>
         <div class="container card shadow text-center col-12 my-4">
             <h5 class="card-header mb-3">Editar Ficha Nº <?= $ficha->getId() ?></h5>
 
@@ -133,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <div class="col">
                     <div class="form-outline mb-3">
-                        <input type="number" id="fechaPublicacion" name="fechaPublicacion" class="form-control" min="1900" max="2099" step="1" value="<?= $ficha->getFechaPublicacion() ?>" />
+                        <input type="number" id="fechaPublicacion" name="fechaPublicacion" class="form-control" step="1" value="<?= $ficha->getFechaPublicacion() ?>" />
                         <label class="form-label" for="fechaPublicacion">Año de publicación</label>
                     </div>
                 </div>
@@ -169,18 +176,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <textarea id="notas" name="notas" placeholder="Notas..."><?= $ficha->getNotas() ?></textarea>
 
-            <div class="row mt-3">
+            <div class="row my-3">
                 <div class="col">
                     <div class="form-outline">
                         <input type="text" id="palabrasClave" name="palabrasClave" class="form-control" value="<?= $ficha->getPalabrasClave() ?>" />
                         <label class="form-label" for="palabrasClave">Palabras clave</label>
                     </div>
                 </div>
-            </div>
-
-            <div class="card-footer text-center mt-3">
-                <a href="index.php" class="btn btn-info">Volver<i class="fa-solid fa-rotate-left ps-1"></i></a>
-                <button type="submit" class="btn btn-info">Editar<i class="fa-solid fa-triangle-exclamation ps-1"></i></button>
             </div>
         </div>
 
