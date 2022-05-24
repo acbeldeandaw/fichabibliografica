@@ -56,16 +56,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php if (Session::exists()) : ?>
 
         <div class="container my-4 text-center">
-            <a href="insertar_ficha.php" class="btn btn-info">Insertar nueva ficha<i class="fa-solid fa-plus ps-1"></i></i></a>
+            <a href="insertar_ficha.php" class="btn btn-info mb-3">nueva ficha<i class="fa-solid fa-plus ps-1"></i></i></a>
+            <div class="input-group d-flex justify-content-center">
+                <div class="form-outline">
+                    <input type="search" id="filter" class="form-control" oninput="myFunction()" />
+                    <label class="form-label" for="filter">Filtrar por título</label>
+                </div>
+            </div>
         </div>
         <?php
         $fichaDAO = new FichaDAO($conn);
         $fichas = $fichaDAO->findAll(Session::getSessionUserId());
         ?>
         <div class="container my-4">
-            <div class="row">
+            <div class="row" id="fichas">
                 <?php foreach ($fichas as $ficha) : ?>
-                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4" id='ficha-<?= $ficha->getId() ?>'>
+                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4 ficha" id='ficha-<?= $ficha->getId() ?>'>
                         <div class="card text-center border shadow">
                             <div class="card-header"><?= $ficha->getTitulo() ?></div>
                             <div class="card-body">
@@ -121,6 +127,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <script type="text/javascript">
         <?= Message::showMessages() ?>
+
+        function myFunction() {
+            var input, filter, cards, cardContainer, h5, title, i;
+            input = document.getElementById("filter");
+            filter = input.value.toUpperCase();
+            cardContainer = document.getElementById("fichas");
+            cards = cardContainer.getElementsByClassName("ficha");
+            for (i = 0; i < cards.length; i++) {
+                title = cards[i].querySelector(".card-header");
+                if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
     </script>
 </body>
 
