@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $fichaDAO = new FichaDAO($conn);
         $fichas = $fichaDAO->findAll(Session::getSessionUserId());
         ?>
-        <div class="container my-4">
+        <section class="container my-4">
             <div class="row" id="fichas">
                 <?php foreach ($fichas as $ficha) : ?>
                     <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4 ficha" id='ficha-<?= $ficha->getId() ?>'>
@@ -94,10 +94,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                 <?php endforeach; ?>
             </div>
-        </div>
+        </section>
 
     <?php else : ?>
-        <div class="d-flex justify-content-center mb-8 text-center">
+        <section class="d-flex justify-content-center mb-8 text-center">
             <div class="col-10 col-md-6 col-lg-5 col-xl-4 p-0 ">
                 <div class="card shadow" style="border-radius: 1rem;">
                     <div class="card-body">
@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     <?php endif; ?>
 
     <?php include("template/bottom.php") ?>
